@@ -1,0 +1,64 @@
+/* ============================================================
+   Morning Coffee Labs – Standard Theme (Light + Dark)
+   + Tabell-utvidelser for Manage Progress
+   ============================================================ */
+
+/* ---------- Lys modus (default) ---------- */
+:root {
+  /* Basis */
+  --mcl-bg:        #fffaf4;
+  --mcl-surface:   #ffffff;
+  --mcl-text:      #1b1a17;
+  --mcl-muted:     #6b655f;
+  --mcl-brand:     #8b5e34;
+  --mcl-accent:    #b08968;
+  --mcl-outline:   #e8dfd5;
+  --mcl-header:    #d7c2a8;
+  --radius:        16px;
+  --elev-1:        0 4px 10px rgba(0,0,0,.08);
+  --elev-2:        0 10px 24px rgba(0,0,0,.12);
+
+  /* AppShell layout-kontrakt */
+  --mcl-header-h:  84px;  /* brukes av toolbar/panels */
+  --mcl-gutter:    16px;  /* standard padding */
+
+  /* Tabell-spesifikt (lys) */
+  --mcl-table-bg:            var(--mcl-surface);
+  --mcl-table-header:        var(--mcl-header);
+  --mcl-table-parent:        #f1e6d9;
+  --mcl-table-child:         var(--mcl-surface);
+  --mcl-table-summary:       #f3eadf;
+  --mcl-table-hover:         #ede2d7;
+  --mcl-table-select:        #f2e6dc;
+  --mcl-table-select-border: var(--mcl-accent);
+}
+
+/* ---------- Mørk modus ---------- */
+html[data-theme="dark"] {
+  /* Basis */
+  --mcl-bg:        #12110f;
+  --mcl-surface:   #1b1a17;
+  --mcl-altbg:     #3b2e23;
+  --mcl-text:      #f7f3ed;
+  --mcl-muted:     #cfc7bf;
+  --mcl-brand:     #d7c2a8;
+  --mcl-accent:    #c2a58f;
+  --mcl-outline:   #2d2b28;
+  --mcl-header:    #3b2e23;
+  --elev-1:        0 4px 10px rgba(0,0,0,.6);
+  --elev-2:        0 10px 24px rgba(0,0,0,.7);
+
+  /* AppShell layout-kontrakt (mørk kan ha samme) */
+  --mcl-header-h:  84px;
+  --mcl-gutter:    16px;
+
+  /* Tabell-spesifikt (mørk) */
+  --mcl-table-bg:            var(--mcl-surface);
+  --mcl-table-header:        #3b2e23;
+  --mcl-table-parent:        #2a231d;
+  --mcl-table-child:         var(--mcl-surface);
+  --mcl-table-summary:       #241e19;
+  --mcl-table-hover:         #2f2720;
+  --mcl-table-select:        #3a2f26;
+  --mcl-table-select-border: var(--mcl-accent);
+}

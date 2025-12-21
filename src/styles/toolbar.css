@@ -1,0 +1,105 @@
+/* src/styles/toolbar.css */
+
+/* Sticky bar below header */
+.mcl-toolbar {
+  position: sticky;
+  top: var(--mcl-header-h, 84px);
+  z-index: 30;
+
+  background: transparent;
+  backdrop-filter: none;
+  box-shadow: none;
+
+  border-top: 1px solid rgba(255, 255, 255, 0.5);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.02);
+}
+
+:root[data-theme="dark"] .mcl-toolbar {
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* Inner layout: 3 slot areas */
+.mcl-toolbar-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 4px 12px;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.mcl-toolbar-left,
+.mcl-toolbar-center,
+.mcl-toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 32px;
+}
+
+.mcl-toolbar-left {
+  flex: 1 1 auto;
+  justify-content: flex-start;
+}
+
+.mcl-toolbar-center {
+  flex: 0 1 auto;
+  justify-content: center;
+}
+
+.mcl-toolbar-right {
+  flex: 1 1 auto;
+  justify-content: flex-end;
+}
+
+/* Generic toolbar button style (apps may reuse these classes) */
+.mcl-toolbar-btn {
+  appearance: none;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+
+  padding: 6px 8px;
+  border-radius: 8px;
+
+  color: var(--mcl-text);
+  font-size: 14px;
+  line-height: 1;
+
+  border-bottom: 2px solid transparent;
+  transition: color 120ms ease, border-bottom-color 120ms ease, background 120ms ease;
+}
+
+.mcl-toolbar-btn:hover {
+  color: var(--mcl-accent);
+  border-bottom-color: rgba(196, 154, 108, 0.5);
+}
+
+.mcl-toolbar-btn:active {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+:root[data-theme="dark"] .mcl-toolbar-btn:active {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* Active state: should look like normal text (no underline) */
+.mcl-toolbar-btn--active {
+  color: var(--mcl-text);
+  font-weight: normal;
+  border-bottom-color: transparent;
+}
+
+/* Small separators you can use in apps */
+.mcl-toolbar-sep {
+  width: 1px;
+  height: 18px;
+  background: rgba(0, 0, 0, 0.12);
+  margin: 0 4px;
+}
+
+:root[data-theme="dark"] .mcl-toolbar-sep {
+  background: rgba(255, 255, 255, 0.14);
+}

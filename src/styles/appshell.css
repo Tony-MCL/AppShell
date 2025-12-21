@@ -1,0 +1,261 @@
+/* src/styles/appshell.css */
+
+/* ===== Globalt: ingen scroll på siden, full høyde ===== */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* All scroll skjer inne i appens scroll-host */
+}
+
+/* ===== App-shell layout ===== */
+.app-shell {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--mcl-bg);
+  color: var(--mcl-text);
+}
+
+/* Hovedområde mellom header/toolbar og footer */
+.app-main {
+  flex: 1;
+  width: 100%;
+  padding: var(--mcl-gutter, 16px);
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+  min-height: 0; /* kritisk for nested scroll */
+}
+
+/* =========================================================
+   SCROLL HOST (FELLES VERTIKAL SCROLL FOR APPENS INNHOLD)
+   - I dag: vi lar TableCore scrolle inni kortet (som før).
+   - Split-ready: vi kan senere slå på "shared-y" slik at
+     AppShell eier vertikal scroll for både tabell + gantt.
+   ========================================================= */
+
+/* Dette er "scroll hosten" for appens innhold */
+.app-scrollhost {
+  flex: 1;
+  min-height: 0;
+
+  /* Default: ingen scroll her (som du har nå) */
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+}
+
+/* Når vi senere vil ha felles vertikal scroll (split-view):
+   sett data-scroll-y="shared" på .app-shell */
+.app-shell[data-scroll-y="shared"] .app-scrollhost {
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-gutter: stable;
+}
+
+/* Viewport inni scrollhost */
+.app-viewport {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Kort generelt */
+.app-section {
+  background: var(--mcl-surface);
+  border-radius: var(--radius);
+  box-shadow: var(--elev-1);
+  padding: 16px;
+  width: 100%;
+  box-sizing: border-box;
+  max-width: 100%;
+
+  min-height: 0; /* Kritisk for at innhold kan shrinke */
+}
+
+/* Hvis vi får flere seksjoner senere kan de få spacing slik: */
+.app-section:not(.app-section--table-card) {
+  margin-bottom: 16px;
+}
+
+.app-section-title {
+  margin: 0 0 4px;
+  font-size: 1.2rem;
+}
+
+.app-section-subtitle {
+  margin: 0 0 12px;
+  color: var(--mcl-muted);
+  font-size: 0.9rem;
+}
+
+/* ==== Table card layout =============================================== */
+
+/* Kortet med tabellen skal fylle høyden i app-main.
+   Selve tabellen scroller inni kortet (default-modus). */
+.app-section--table-card {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+/* Wrapper rundt TableCore – gir høyde-kontrakt */
+.app-table-wrapper {
+  flex: 1;
+  min-height: 0;
+  margin-top: 8px;
+
+  overflow: hidden; /* viktig: ingen scroll her */
+
+  display: flex;
+  flex-direction: column;
+}
+
+/* Sørg for at TableCore-roten faktisk blir et flex-barn med riktig høyde */
+.app-table-wrapper > .tc-root {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Default: TableCore sin wrapper er scrolleren (som nå) */
+.app-table-wrapper .tc-wrap {
+  flex: 1;
+  min-height: 0;
+  overflow-x: auto;
+  overflow-y: auto;
+
+  scrollbar-gutter: stable;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Når AppShell eier felles Y-scroll (split-view):
+   TableCore må IKKE ha egen vertikal scroll */
+.app-shell[data-scroll-y="shared"] .app-table-wrapper .tc-wrap {
+  overflow-y: hidden;
+}
+
+/* Scrollbar styling (Chromium/Safari) */
+.app-table-wrapper .tc-wrap::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+.app-table-wrapper .tc-wrap::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.app-table-wrapper .tc-wrap::-webkit-scrollbar-thumb {
+  background: var(--mcl-outline);
+  border-radius: 999px;
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+
+.app-table-wrapper .tc-wrap::-webkit-scrollbar-thumb:hover {
+  background: var(--mcl-muted);
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+
+/* Firefox */
+.app-table-wrapper .tc-wrap {
+  scrollbar-width: thin;
+  scrollbar-color: var(--mcl-outline) transparent;
+}
+
+/* =========================================================
+   SPLIT VIEW (KLAR TIL BRUK)
+   - Felles vertikal scroll i .app-scrollhost (data-scroll-y="shared")
+   - Individuell horisontal scroll i hvert panel
+   ========================================================= */
+
+.app-split {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(420px, 1fr) minmax(420px, 1fr);
+  gap: 16px;
+}
+
+/* Panel-kort i split-view (bruk samme app-section styling) */
+.app-split-panel {
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Panel-innhold: skal ikke ha egen vertikal scroll når shared-y er på */
+.app-split-panel-body {
+  flex: 1;
+  min-height: 0;
+
+  /* Default: la innhold styre (vi slår ikke på scroll her) */
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+}
+
+/* Individuell horisontal scroll per panel */
+.app-split-panel-xscroll {
+  flex: 1;
+  min-height: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-gutter: stable;
+}
+
+/* Mobil: stack panelene */
+@media (max-width: 1100px) {
+  .app-split {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==== Footer =========================================================== */
+
+.app-footer {
+  border-top: 1px solid var(--mcl-outline);
+  background: var(--mcl-surface);
+  padding: 8px 16px;
+  font-size: 0.8rem;
+  color: var(--mcl-muted);
+}
+
+.app-footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.app-footer-links {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.app-footer-links a {
+  color: var(--mcl-muted);
+  text-decoration: none;
+}
+
+.app-footer-links a:hover {
+  text-decoration: underline;
+}
+
+.app-footer-icon {
+  font-size: 1rem;
+}

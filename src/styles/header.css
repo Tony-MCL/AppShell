@@ -1,0 +1,166 @@
+/* src/styles/header.css */
+
+/* =========================================================
+   MCL Standard Header v1.0 – variant C
+   ========================================================= */
+
+.mcl-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+
+  backdrop-filter: blur(16px);
+  box-shadow: var(--elev-1);
+
+  background: linear-gradient(
+    to bottom,
+    rgba(215, 194, 168, 0.96),
+    rgba(215, 194, 168, 0.84),
+    rgba(215, 194, 168, 0.0)
+  );
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+html[data-theme="dark"] .mcl-header {
+  background: linear-gradient(
+    to bottom,
+    rgba(15, 11, 9, 0.88),
+    rgba(15, 11, 9, 0.72),
+    transparent
+  );
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+/* Indre container – styrer høyde / luft */
+.mcl-header-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 1.1rem 1.5rem; /* gir ca. 84px total høyde */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* ===== Venstre side: logo + appnavn ===== */
+
+.mcl-header-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.mcl-logo-wrap {
+  height: 68px;
+  width: auto;
+  display: flex;
+  align-items: center;
+}
+
+.mcl-logo {
+  height: 100%;
+  width: auto;
+  display: block;
+  object-fit: contain;
+}
+
+/* Mindre logo på smale skjermer */
+@media (max-width: 720px) {
+  .mcl-logo-wrap {
+    height: 52px;
+  }
+}
+
+.mcl-header-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.mcl-header-appname {
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.mcl-header-tagline {
+  font-size: 0.8rem;
+  color: var(--mcl-muted);
+}
+
+/* ===== Høyre side: språk + tema + hjelp ===== */
+
+.mcl-header-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Icon-knapper (help, theme) */
+.mcl-header-icon-button {
+  border: none;
+  background: transparent;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 8px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background 0.15s ease, opacity 0.1s ease;
+}
+
+/* Hover – lys modus */
+.mcl-header-icon-button:hover {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+/* Hover – mørk modus */
+html[data-theme="dark"] .mcl-header-icon-button:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.mcl-header-icon-button:active {
+  opacity: 0.7;
+}
+
+.mcl-header-icon-label {
+  display: none;
+}
+
+@media (min-width: 720px) {
+  .mcl-header-icon-label {
+    display: inline;
+  }
+}
+
+/* ===== Språk-toggle (NO / EN) ===== */
+
+.mcl-lang-toggle {
+  display: inline-flex;
+  padding: 2px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.4);
+}
+
+/* Mørk: gjør “pill” mørkere */
+html[data-theme="dark"] .mcl-lang-toggle {
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.mcl-lang-button {
+  border: none;
+  background: transparent;
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.mcl-lang-button--active {
+  background: var(--mcl-surface);
+  color: var(--mcl-brand);
+}
+
+/* Tema-ikon */
+.mcl-theme-icon {
+  font-size: 1.1rem;
+}

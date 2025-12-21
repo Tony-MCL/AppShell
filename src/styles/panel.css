@@ -1,0 +1,65 @@
+/* src/styles/panel.css */
+
+.mcl-panel-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: flex-end;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.25);
+  opacity: 0;
+  animation: mcl-overlay-fade-in 0.2s forwards;
+
+  /* Viktig: overlay skal ikke arve rare stacking contexts fra sticky */
+  isolation: isolate;
+}
+
+.mcl-panel-overlay.closing {
+  animation: mcl-overlay-fade-out 0.2s forwards;
+}
+
+.mcl-help-panel {
+  width: min(380px, 85vw);
+  background: var(--mcl-surface);
+  color: var(--mcl-text);
+  box-shadow: var(--elev-2);
+  padding: 16px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  transform: translateX(100%);
+  animation: mcl-panel-slide-in 0.2s forwards;
+}
+
+.mcl-help-panel.closing {
+  animation: mcl-panel-slide-out 0.2s forwards;
+}
+
+.mcl-help-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* ========== ANIMASJONER ========== */
+
+@keyframes mcl-panel-slide-in {
+  from { transform: translateX(100%); }
+  to   { transform: translateX(0); }
+}
+
+@keyframes mcl-panel-slide-out {
+  from { transform: translateX(0); }
+  to   { transform: translateX(100%); }
+}
+
+@keyframes mcl-overlay-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes mcl-overlay-fade-out {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
